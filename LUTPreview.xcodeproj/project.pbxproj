@@ -11,15 +11,21 @@
 		3222600329561A2100487364 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3222600229561A2100487364 /* ContentView.swift */; };
 		3222600529561A2300487364 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3222600429561A2300487364 /* Assets.xcassets */; };
 		3222600829561A2300487364 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3222600729561A2300487364 /* Preview Assets.xcassets */; };
+		56EE9E2C71AACB0A5392BD9F /* Pods_LUTPreview.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77ACCB20C3744CFDD5DA7811 /* Pods_LUTPreview.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F86A0B18ED0D032928F427C /* Pods-LUTPreview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LUTPreview.release.xcconfig"; path = "Target Support Files/Pods-LUTPreview/Pods-LUTPreview.release.xcconfig"; sourceTree = "<group>"; };
 		32225FFD29561A2100487364 /* LUTPreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LUTPreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3222600029561A2100487364 /* LUTPreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LUTPreviewApp.swift; sourceTree = "<group>"; };
 		3222600229561A2100487364 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3222600429561A2300487364 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3222600729561A2300487364 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3222600929561A2300487364 /* LUTPreview.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LUTPreview.entitlements; sourceTree = "<group>"; };
+		32B1A24B2956568D009658CB /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		32B1A250295673FA009658CB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		77ACCB20C3744CFDD5DA7811 /* Pods_LUTPreview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LUTPreview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F8FC862672D375F4595D1B2 /* Pods-LUTPreview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LUTPreview.debug.xcconfig"; path = "Target Support Files/Pods-LUTPreview/Pods-LUTPreview.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -27,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				56EE9E2C71AACB0A5392BD9F /* Pods_LUTPreview.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +45,8 @@
 			children = (
 				32225FFF29561A2100487364 /* LUTPreview */,
 				32225FFE29561A2100487364 /* Products */,
+				32B1A24A2956568C009658CB /* Frameworks */,
+				86EE2D8F14050C333963C7EC /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -52,6 +61,7 @@
 		32225FFF29561A2100487364 /* LUTPreview */ = {
 			isa = PBXGroup;
 			children = (
+				32B1A250295673FA009658CB /* Info.plist */,
 				3222600029561A2100487364 /* LUTPreviewApp.swift */,
 				3222600229561A2100487364 /* ContentView.swift */,
 				3222600429561A2300487364 /* Assets.xcassets */,
@@ -69,6 +79,25 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		32B1A24A2956568C009658CB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				32B1A24B2956568D009658CB /* CoreImage.framework */,
+				77ACCB20C3744CFDD5DA7811 /* Pods_LUTPreview.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		86EE2D8F14050C333963C7EC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8F8FC862672D375F4595D1B2 /* Pods-LUTPreview.debug.xcconfig */,
+				2F86A0B18ED0D032928F427C /* Pods-LUTPreview.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -76,9 +105,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3222600C29561A2300487364 /* Build configuration list for PBXNativeTarget "LUTPreview" */;
 			buildPhases = (
+				39E2E03F01E3C25F3E2DCED9 /* [CP] Check Pods Manifest.lock */,
 				32225FF929561A2100487364 /* Sources */,
 				32225FFA29561A2100487364 /* Frameworks */,
 				32225FFB29561A2100487364 /* Resources */,
+				CD30ABFF494ECC0F43DF7B43 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -133,6 +164,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		39E2E03F01E3C25F3E2DCED9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LUTPreview-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CD30ABFF494ECC0F43DF7B43 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LUTPreview/Pods-LUTPreview-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-LUTPreview/Pods-LUTPreview-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-LUTPreview/Pods-LUTPreview-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		32225FF929561A2100487364 /* Sources */ = {
@@ -197,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -251,7 +324,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 12.6;
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -262,7 +335,9 @@
 		};
 		3222600D29561A2300487364 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8F8FC862672D375F4595D1B2 /* Pods-LUTPreview.debug.xcconfig */;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LUTPreview/LUTPreview.entitlements;
@@ -272,22 +347,27 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LUTPreview/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LUTPreview/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ua.thedimas.LUTPreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
 		3222600E29561A2300487364 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2F86A0B18ED0D032928F427C /* Pods-LUTPreview.release.xcconfig */;
 			buildSettings = {
+				ALLOW_TARGET_PLATFORM_SPECIALIZATION = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LUTPreview/LUTPreview.entitlements;
@@ -297,15 +377,18 @@
 				DEVELOPMENT_ASSET_PATHS = "\"LUTPreview/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LUTPreview/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = ua.thedimas.LUTPreview;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_PRECOMPILE_BRIDGING_HEADER = NO;
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
