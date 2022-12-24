@@ -24,47 +24,54 @@ struct ContentView: View {
         }
         return nil
     }
-    @State var files: Array<URL> = []
-    @State var listSelection = Set<String>()
+    @State var files: Array<String> = []
     @State var photoURL = URL(string: "")
+    @State var selection = Set<String>()
     var body: some View {
         NavigationView {
-            List(files, id:\.self, selection: $listSelection) { fileURL in
-                let file = fileURL.lastPathComponent
-                NavigationLink(destination: List() {
+            List(files, id:\.self, selection: $selection) { file in
+                NavigationLink(destination: VStack {
+                    Label(selection.first ?? "<none>", systemImage: "ant")
                     if (photoURL != nil) {
-//                        Label(photoURL!.lastPathComponent, systemImage: "photo")
                         HStack {
-//                            AsyncImage(url: photoURL)
-//                                .resizable()
-//                                .aspectRatio(contentMode:)
+                            let fileURL = URL(string: file)!
                             let cgImageSource = CGImageSourceCreateWithURL(photoURL! as CFURL, nil)!
                             let origImage = CGImageSourceCreateImageAtIndex(cgImageSource, 0, nil)!
                             let img = applyLUT(imageURL: photoURL!, lutURL: fileURL)
                             let cgImage = convertCIImageToCGImage(img)!
                             let nsImage = NSImage(cgImage: cgImage, size: NSSize(width: cgImage.width, height: cgImage.height))
                             GroupBox {
-                                HStack {
-                                    VStack {
-                                        Label("Original", systemImage: "photo")
-                                        Image(decorative: origImage, scale: 1.0)
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
-                                    VStack {
-                                        Label("LUTed", systemImage: "wand.and.stars.inverse")
-                                        Image(nsImage: nsImage)
-                                            .resizable()
-                                            .scaledToFit()
-                                    }
+                                VStack {
+                                    Label("Original", systemImage: "photo")
+                                    Image(decorative: origImage, scale: 1.0)
+                                        .resizable()
+                                        .scaledToFit()
                                 }
                             }
-                        }
+                            GroupBox {
+                                VStack {
+                                    Label("LUTed", systemImage: "wand.and.stars.inverse")
+                                    Image(nsImage: nsImage)
+                                        .resizable()
+                                        .scaledToFit()
+                                }
+                            }
+                        }.padding(10)
                     } else {
-                        Label(fileURL.lastPathComponent, systemImage: "cube.transparent")
+                        let fileURL = URL(string: file)!
+                        let lut = LUT(from: fileURL)!
+                        List {
+                            Section("LUT info") {
+                                ListRows(title: "Filename", value: fileURL.lastPathComponent, icon: "doc")
+                                ListRows(title: "Title", value: lut.title, icon: "textformat")
+                                ListRows(title: "Description", value: lut.descriptionText, icon: "text.alignleft")
+                                ListRows(title: "Size", value: "\(lut.size)", icon: "character.textbox")
+                                ListRows(title: "Metadata", value: "\(lut.metadata)", icon: "info.circle")
+                            }
+                        }
                     }
                 }.listStyle(.inset)) {
-                    Label(file, systemImage: "shippingbox")
+                    Label(URL(string: file)!.lastPathComponent, systemImage: "shippingbox")
                 }
             }.listStyle(SidebarListStyle())
         }.toolbar {
@@ -83,8 +90,8 @@ struct ContentView: View {
                     panel.allowedContentTypes = arr
                     if panel.runModal() == .OK {
                         panel.urls.forEach { url in
-                            if (!files.contains(url)) {
-                                files.append(url)
+                            if (!files.contains(url.absoluteString)) {
+                                files.append(url.absoluteString)
                             }
                         }
                     }
@@ -109,16 +116,22 @@ struct ContentView: View {
             }
             ToolbarItem(placement: .cancellationAction) {
                 Button(action: {
-                    print("Pre-removing...")
-                    print(listSelection)
-                    if (listSelection.count == 0) {
-                        return
-                    }
-                    print("Removing...")
-                    files = files.filter {$0.lastPathComponent != listSelection.first!}
-                    listSelection.removeAll()
+                    files = files.filter {$0 != selection.first}
+                    selection = [""]
+                    photoURL = URL(string: "")
                 }, label: {
-                    Image(systemName: "xmark.circle")
+                    Image(systemName: "xmark")
+                        .foregroundColor(.red)
+                })
+            }
+            ToolbarItem(placement: .destructiveAction) {
+                Button(action: {
+                    files = []
+                    selection = [""]
+                    photoURL = URL(string: "")
+                }, label: {
+                    Image(systemName: "trash")
+                        .foregroundColor(.red)
                 })
             }
         }
@@ -129,6 +142,21 @@ struct ContentView: View {
         #else
         NSApp.keyWindow?.firstResponder?.tryToPerform(#selector(NSSplitViewController.toggleSidebar(_:)), with: nil)
         #endif
+    }
+}
+
+struct ListRows: View {
+    let title: String
+    let value: String
+    var icon = ""
+    var body: some View {
+        HStack {
+            Image(systemName: icon)
+            Text(title)
+            Spacer()
+            Text(value)
+                .foregroundColor(.secondary)
+        }
     }
 }
 
