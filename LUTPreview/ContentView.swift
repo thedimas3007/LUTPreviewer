@@ -31,7 +31,6 @@ struct ContentView: View {
         NavigationView {
             List(files, id:\.self, selection: $selection) { file in
                 NavigationLink(destination: VStack {
-                    Label(selection.first ?? "<none>", systemImage: "ant")
                     if (photoURL != nil) {
                         HStack {
                             let fileURL = URL(string: file)!
@@ -126,8 +125,8 @@ struct ContentView: View {
             }
             ToolbarItem(placement: .destructiveAction) {
                 Button(action: {
-                    files = []
                     selection = [""]
+                    files = []
                     photoURL = URL(string: "")
                 }, label: {
                     Image(systemName: "trash")
