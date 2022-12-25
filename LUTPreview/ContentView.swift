@@ -27,6 +27,8 @@ struct ContentView: View {
     @State var files: Array<String> = []
     @State var photoURL = URL(string: "")
     @State var selection = Set<String>()
+    @State var invalidShown = false
+    @State var invalidFiles: Array<String> = []
     var body: some View {
         NavigationView {
             List(files, id:\.self, selection: $selection) { file in
@@ -62,8 +64,12 @@ struct ContentView: View {
                         List {
                             Section("LUT info") {
                                 ListRows(title: "Filename", value: fileURL.lastPathComponent, icon: "doc")
-                                ListRows(title: "Title", value: lut.title, icon: "textformat")
-                                ListRows(title: "Description", value: lut.descriptionText, icon: "text.alignleft")
+                                if lut.title != nil {
+                                    ListRows(title: "Title", value: lut.title!, icon: "textformat")
+                                }
+                                if lut.descriptionText != nil {
+                                    ListRows(title: "Description", value: lut.descriptionText!, icon: "text.alignleft")
+                                }
                                 ListRows(title: "Size", value: "\(lut.size)", icon: "character.textbox")
                                 ListRows(title: "Metadata", value: "\(lut.metadata)", icon: "info.circle")
                             }
@@ -82,16 +88,23 @@ struct ContentView: View {
             ToolbarItem(placement: .navigation) {
                 Button(action: {
                     let panel = NSOpenPanel()
-                    var arr = [UTType]()
-                    arr.append(UTType(filenameExtension: "cube")!)
+                    var arr = [UTType(filenameExtension: "cube")!, UTType(filenameExtension: "3dl")!, UTType(filenameExtension: "vlt")!]
                     panel.allowsMultipleSelection = true
                     panel.canChooseDirectories = false
                     panel.allowedContentTypes = arr
+                    invalidFiles = []
                     if panel.runModal() == .OK {
                         panel.urls.forEach { url in
                             if (!files.contains(url.absoluteString)) {
-                                files.append(url.absoluteString)
+                                if LUT(from: url) == nil {
+                                    invalidFiles.append(url.lastPathComponent)
+                                } else {
+                                    files.append(url.absoluteString)
+                                }
                             }
+                        }
+                        if !invalidFiles.isEmpty {
+                            invalidShown = true
                         }
                     }
                 }, label: {
@@ -105,8 +118,17 @@ struct ContentView: View {
                     panel.allowsMultipleSelection = false
                     panel.canChooseDirectories = false
                     panel.allowedContentTypes = [UTType.image]
+                    invalidFiles = []
                     if panel.runModal() == .OK {
-                        photoURL = panel.url!
+                        let cgImageSource = CGImageSourceCreateWithURL(panel.url! as CFURL, nil)!
+                        if CGImageSourceCreateImageAtIndex(cgImageSource, 0, nil) == nil {
+                            invalidFiles.append(panel.url!.lastPathComponent)
+                        } else {
+                            photoURL = panel.url!
+                        }
+                        if !invalidFiles.isEmpty {
+                            invalidShown = true
+                        }
                     }
                 }, label: {
                     Image(systemName: "photo")
@@ -133,6 +155,8 @@ struct ContentView: View {
                         .foregroundColor(.red)
                 })
             }
+        }.alert(isPresented: $invalidShown) {
+            Alert(title: Text("Invalid files"), message: Text(invalidFiles.joined(separator: ", ")))
         }
     }
     
